@@ -1,8 +1,5 @@
-h1, h2, h3, h4, h5, h6, p{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 body {
+    font-family: Arial, Helvetica, sans-serif;
     padding: 100px;
     background-image: url(blackjack.jpg);
     background-size: cover;
@@ -10,41 +7,34 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     overflow: hidden;
-}
-
-.Stand {
-    position: fixed;
-    bottom: 50px;
-    left: 800px;
-    width: 100px;
-    height: 60px;
-    font-size: 20px;
     text-align: center;
-    line-height: 0px;
 }
 
-.Hit {
-    position: fixed;
-    bottom: 50px;
-    right: 800px;
+#dealer_cards img {
+    height: 175px;
+    width: 125px;
+    margin: 1px;
+}
+
+#player_cards img {
+    height: 175px;
+    width: 125px;
+    margin: 1px;
+}
+
+#stand {
+    height: 50px;
     width: 100px;
-    height: 60px;
     font-size: 20px;
-    text-align: center;
-    line-height: 0px;
+    
 }
 
-#deck {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.card {
+#hit {
+    height: 50px;
     width: 100px;
-    height: 150px;
-    margin: 5px;
-    background-size: contain;
-    background-repeat: no-repeat;
+    font-size: 20px;
 }
+
+
 
 
