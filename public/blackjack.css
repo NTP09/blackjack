@@ -1,6 +1,6 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    padding: 100px;
+    padding: 4%;
     background-image: url(blackjack.jpg);
     background-size: cover;
     background-position: center;
@@ -12,13 +12,16 @@ body {
 
 h2 {
     color: white;
+    margin-top: -10px;
+    margin-bottom: 10px;
 }
 
 /* dealer cards */
 #dealer_cards img {
     height: 175px;
     width: 120px;
-    margin: 4px;
+    margin-right: 4px;
+    margin-bottom: 50px;
 }
 
 /* player cards */
@@ -31,22 +34,59 @@ h2 {
 
 /* stand button */
 #stand {
-    height: 65px;
+    height: 60px;
     width: 125px;
     font-size: 30px;
-    
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    font-weight: bold;
+}
+
+#stand:hover {
+    background-color: red;
 }
 
 /* hit button */
 #hit {
-    height: 65px;
+    height: 60px;
     width: 125px;
     font-size: 30px;
     margin-right: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    font-weight: bold;
     
+}
+
+#hit:hover {
+    background-color: green;
+
 }
 
 #results {
     color: white;
-    font-size: 25px;
+    font-size: 30px;
+    font-weight: bold;
+    
+}
+
+#reset-game {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    font-weight: bold;
+}
+
+#reset-game:hover {
+    background-color: red;
 }

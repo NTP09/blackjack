@@ -61,6 +61,7 @@ function deal(target){
         playerSum += getValue(card);
         playerAce += checkAce(card);
         document.getElementById("player_cards").append(cardImg);
+        document.getElementById("player_sum").textContent = playerSum;
     } else if(target === "dealer"){
         dealerSum += getValue(card);
         dealerAce += checkAce(card);
@@ -98,7 +99,7 @@ function stand(){
     let message = "";
 
     if(playerSum > 21) {
-        message = "You Bust, you lose";
+        message = "Bust, you lose";
     }
 
     else if (dealerSum > 21) {
