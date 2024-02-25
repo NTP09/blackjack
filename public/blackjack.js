@@ -1,13 +1,10 @@
-var dealerSum = 0;
-var playerSum = 0;
-
-var dealerAce = 0;
-var playerAce = 0;
-
-var hidden;
-var deck;
-
-var canHit = true; //allows player to draw while sum is lower than 21
+let dealerSum = 0;
+let playerSum = 0;
+let dealerAce = 0;
+let playerAce = 0;
+let hidden;
+let deck;
+let canHit = true; //allows player to draw while sum is lower than 21
 
 window.onload = function () {
     buildDeck();
@@ -22,10 +19,9 @@ function buildDeck() {
 
     for (let i = 0; i < types.length; i++) {
         for (let j = 0; j < values.length; j++) {
-            deck.push(values[j] + types[i]);
+            deck.push(values[j] + "-" + types[i]);
         }
     }
-    console.log(deck);
 }
 
 function shuffleDeck() {
@@ -35,27 +31,100 @@ function shuffleDeck() {
         deck[i] = deck[j];
         deck[j] = temp;
     }
-    console.log(deck);
 }
 
 function startGame(){
     hidden = deck.pop();
     dealerSum += getValue(hidden);
     dealerAce += checkAce(hidden);
-    while (dealerSum < 17){
-        let cardImg = document.createElement("img");
-        let card = deck.pop();
-        cardImg.src = "./cards/" + card + ".jpg";
+
+
+    let cardImg = document.createElement("img");
+    cardImg.src = "./cards/BACK.png";
+
+    for (let i = 0; i < 2; i++) {
+        deal("player");
+    }
+
+    deal("dealer");
+    
+    document.getElementById("hit").addEventListener("click", hit);
+    document.getElementById("stand").addEventListener("click", stand);
+}
+
+function deal(target){
+    let cardImg = document.createElement("img");
+    let card = deck.pop();
+    cardImg.src = "./cards/" + card + ".png";
+    
+    if(target === "player"){
+        playerSum += getValue(card);
+        playerAce += checkAce(card);
+        document.getElementById("player_cards").append(cardImg);
+    } else if(target === "dealer"){
         dealerSum += getValue(card);
         dealerAce += checkAce(card);
         document.getElementById("dealer_cards").append(cardImg);
     }
-    console.log(dealerSum);
 }
 
-function getValue(card){
-    let data = card;
-    let value = data[0];
+
+function hit(){
+    if (!canHit) {
+        return;
+    }
+
+    deal("player");
+
+    if(reduceAce(playerSum, playerAce) > 21) {
+        canHit = false;
+    }
+}
+
+function stand(){
+
+    let hiddenCardImg = document.getElementById("dealer_cards").getElementsByTagName("img")[0];
+    hiddenCardImg.src = "./cards/" + hidden + ".png";
+
+    while (dealerSum < 17) {
+        deal("dealer");
+    }
+    dealerSum = reduceAce(dealerSum,dealerAce);
+    playerSum = reduceAce(playerSum, playerAce);
+
+    canHit = false;
+    document.getElementById("hidden").src = "./cards/" + hidden + ".png";
+    
+    let message = "";
+
+    if(playerSum > 21) {
+        message = "You Bust, you lose";
+    }
+
+    else if (dealerSum > 21) {
+        message = "Dealer bust, you win!";
+    }
+
+    else if (playerSum == dealerSum) {
+        message = "Push!";
+    }
+
+    else if (playerSum > dealerSum) {
+        message = "You win!";
+    }
+
+    else if (playerSum < dealerSum) {
+        message = "You lose";
+    }
+
+    document.getElementById("dealer_sum").innerText = dealerSum;
+    document.getElementById("player_sum").innerText = playerSum;
+    document.getElementById("results").innerText = message;
+}
+
+function getValue(card) {
+    let data = card.split("-")[0];
+    let value = data;
 
     if(isNaN(value)){
         if (value == "A"){
@@ -66,8 +135,17 @@ function getValue(card){
     return parseInt(value);
 }
 
-function checkAce(card){
+function checkAce(card) {
     if(card[0] == "A"){
         return 1;
     }
+    return 0;
+}
+
+function reduceAce (sum, aceCount) {
+    while(sum > 21 && aceCount > 0) {
+        sum -= 10;
+        aceCount -= 1;
+    }
+    return sum;
 }
