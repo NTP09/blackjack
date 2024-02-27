@@ -29,7 +29,6 @@ h2 {
     height: 175px;
     width: 120px;
     margin: 4px;
-
 }
 
 /* stand button */
@@ -57,7 +56,6 @@ h2 {
     cursor: pointer;
     transition: background-color 0.5s ease;
     font-weight: bold;
-    
 }
 
 #hit:hover {
@@ -67,20 +65,18 @@ h2 {
 
 #results {
     color: white;
-    font-size: 30px;
+    font-size: 35px;
     font-weight: bold;
     
 }
 
 #reset-game {
-    position: absolute;
+    position: fixed;
     top: 20px;
     left: 20px;
-    padding: 10px 20px;
+    padding: 10px;
     font-size: 16px;
     background-color: white;
-    color: black;
-    border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.5s ease;
@@ -88,5 +84,22 @@ h2 {
 }
 
 #reset-game:hover {
+    background-color: red;
+}
+
+#Blackjack_Rules {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    width: 215px;
+    background-color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.5s ease;
+    cursor: pointer;
+}
+
+#Blackjack_Rules:hover {
     background-color: red;
 }

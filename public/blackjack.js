@@ -78,6 +78,7 @@ function hit(){
     deal("player");
 
     if(reduceAce(playerSum, playerAce) > 21) {
+        stand();
         canHit = false;
     }
 }
@@ -150,3 +151,4 @@ function reduceAce (sum, aceCount) {
     }
     return sum;
 }
+
