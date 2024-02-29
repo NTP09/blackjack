@@ -33,7 +33,7 @@ function shuffleDeck() {
     }
 }
 
-function startGame(){
+function startGame() {
     hidden = deck.pop();
     dealerSum += getValue(hidden);
     dealerAce += checkAce(hidden);
@@ -47,43 +47,52 @@ function startGame(){
     }
 
     deal("dealer");
-    
+
     document.getElementById("hit").addEventListener("click", hit);
     document.getElementById("stand").addEventListener("click", stand);
 }
 
-function deal(target){
+function deal(target) {
     let cardImg = document.createElement("img");
     let card = deck.pop();
     cardImg.src = "./cards/" + card + ".png";
-    
-    if(target === "player"){
+
+    if (target === "player") {
         playerSum += getValue(card);
         playerAce += checkAce(card);
+        if (playerSum > 21 && playerAce > 0) {
+            playerSum = reduceAce(playerSum, playerAce);
+            playerAce--;
+        }
         document.getElementById("player_cards").append(cardImg);
         document.getElementById("player_sum").textContent = playerSum;
-    } else if(target === "dealer"){
+    } else if (target === "dealer") {
         dealerSum += getValue(card);
         dealerAce += checkAce(card);
+        if (dealerSum > 21 && dealerAce > 0) {
+            dealerSum = reduceAce(dealerSum, dealerAce);
+            dealerAce--;
+        }
         document.getElementById("dealer_cards").append(cardImg);
+        document.getElementById("dealer_sum").textContent = getValue(card);
     }
 }
 
 
-function hit(){
+function hit() {
     if (!canHit) {
         return;
     }
 
     deal("player");
 
-    if(reduceAce(playerSum, playerAce) > 21) {
+    if (reduceAce(playerSum, playerAce) > 21) {
         stand();
         canHit = false;
     }
 }
 
-function stand(){
+function stand() {
 
     let hiddenCardImg = document.getElementById("dealer_cards").getElementsByTagName("img")[0];
     hiddenCardImg.src = "./cards/" + hidden + ".png";
@@ -91,15 +100,15 @@ function stand(){
     while (dealerSum < 17) {
         deal("dealer");
     }
-    dealerSum = reduceAce(dealerSum,dealerAce);
+    dealerSum = reduceAce(dealerSum, dealerAce);
     playerSum = reduceAce(playerSum, playerAce);
 
     canHit = false;
     document.getElementById("hidden").src = "./cards/" + hidden + ".png";
-    
+
     let message = "";
 
-    if(playerSum > 21) {
+    if (playerSum > 21) {
         message = "Bust, you lose";
     }
 
@@ -128,8 +137,8 @@ function getValue(card) {
     let data = card.split("-")[0];
     let value = data;
 
-    if(isNaN(value)){
-        if (value == "A"){
+    if (isNaN(value)) {
+        if (value == "A") {
             return 11;
         }
         return 10;
@@ -138,14 +147,14 @@ function getValue(card) {
 }
 
 function checkAce(card) {
-    if(card[0] == "A"){
+    if (card[0] == "A") {
         return 1;
     }
     return 0;
 }
 
-function reduceAce (sum, aceCount) {
-    while(sum > 21 && aceCount > 0) {
+function reduceAce(sum, aceCount) {
+    while (sum > 21 && aceCount > 0) {
         sum -= 10;
         aceCount -= 1;
     }
