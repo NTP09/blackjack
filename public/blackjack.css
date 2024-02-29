@@ -60,16 +60,16 @@ h2 {
 
 #hit:hover {
     background-color: green;
-
 }
 
+/* results popup after the game */
 #results {
     color: white;
     font-size: 35px;
     font-weight: bold;
-
 }
 
+/* reset game button */
 #reset-game {
     position: fixed;
     top: 20px;
@@ -87,6 +87,7 @@ h2 {
     background-color: red;
 }
 
+/* blackjack rules button*/
 #Blackjack_Rules {
     position: fixed;
     top: 20px;

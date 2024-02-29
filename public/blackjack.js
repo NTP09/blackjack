@@ -4,7 +4,7 @@ let dealerAce = 0;
 let playerAce = 0;
 let hidden;
 let deck;
-let canHit = true; //allows player to draw while sum is lower than 21
+let canHit = true;
 
 window.onload = function () {
     buildDeck();
@@ -38,7 +38,6 @@ function startGame() {
     dealerSum += getValue(hidden);
     dealerAce += checkAce(hidden);
 
-
     let cardImg = document.createElement("img");
     cardImg.src = "./cards/BACK.png";
 
@@ -47,7 +46,6 @@ function startGame() {
     }
 
     deal("dealer");
-
     document.getElementById("hit").addEventListener("click", hit);
     document.getElementById("stand").addEventListener("click", stand);
 }
@@ -78,14 +76,12 @@ function deal(target) {
     }
 }
 
-
 function hit() {
     if (!canHit) {
         return;
     }
 
     deal("player");
-
     if (reduceAce(playerSum, playerAce) > 21) {
         stand();
         canHit = false;
@@ -111,19 +107,15 @@ function stand() {
     if (playerSum > 21) {
         message = "Bust, you lose";
     }
-
     else if (dealerSum > 21) {
         message = "Dealer bust, you win!";
     }
-
     else if (playerSum == dealerSum) {
         message = "Push!";
     }
-
     else if (playerSum > dealerSum) {
         message = "You win!";
     }
-
     else if (playerSum < dealerSum) {
         message = "You lose";
     }
