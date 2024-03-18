@@ -149,7 +149,6 @@ function stand() {
         window.location.reload();
     }, 3000); 
     })
-    
     .catch(error => console.error('Error:', error));
 }
 
@@ -167,4 +166,3 @@ function sendScore() {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(data);
 }
-
