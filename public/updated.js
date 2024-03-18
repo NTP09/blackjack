@@ -85,3 +85,70 @@ function hit() {
 
 let consecutiveWins = 0;
 
+function stand() {
+    canHit = false;
+    fetch('game.php', {
+        method: 'POST',
+        body: new URLSearchParams({
+            action: 'stand'
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        dealerSum = data.dealer_sum;
+        dealerAce = data.dealer_ace;
+        document.getElementById("hidden").src = `./cards/${data.dealer_cards[0]}.png`;
+        document.getElementById("dealer_sum").innerText = dealerSum;
+
+        data.dealer_cards.forEach(function(card, index) {
+            if (index !== 0) {
+                document.getElementById("dealer_cards").innerHTML += `<img src="./cards/${card}.png" alt="Card">`;
+            }
+        });
+
+    let message = "";
+    if (playerSum > 21) {
+        message = "Bust, you lose";
+        setTimeout(function() {
+            sendScore();
+            sessionStorage.setItem('consecutiveWins', 0); 
+        }, 1000);
+
+    } else if (dealerSum > 21) {
+        message = "Dealer bust, you win!";
+        let wins = parseInt(sessionStorage.getItem('consecutiveWins')) || 0;
+        sessionStorage.setItem('consecutiveWins', wins + 1); 
+    
+    } else if (playerSum === dealerSum) {
+        message = "Push!";
+        sessionStorage.setItem('consecutiveWins', wins); 
+    
+    } else if (playerSum > dealerSum) {
+        message = "You win!";
+        let wins = parseInt(sessionStorage.getItem('consecutiveWins')) || 0;
+        sessionStorage.setItem('consecutiveWins', wins + 1); 
+    
+    } else if (playerSum < dealerSum) {
+        message = "You lose";
+    
+        setTimeout(function() {
+            sendScore();
+            sessionStorage.setItem('consecutiveWins', 0); 
+        }, 1000);   
+    }
+    document.getElementById("results").innerText = message;
+
+    let consecutiveWins = parseInt(sessionStorage.getItem('consecutiveWins')) || 0;
+    if (consecutiveWins > 0 && message !== "You lose") {
+        setTimeout(function() {
+            alert("You won " + consecutiveWins + " games in a row!");
+        }, 1000);
+    }
+
+    setTimeout(function() {
+        window.location.reload();
+    }, 3000); 
+    })
+    
+    .catch(error => console.error('Error:', error));
+}
