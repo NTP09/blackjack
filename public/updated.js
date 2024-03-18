@@ -152,3 +152,19 @@ function stand() {
     
     .catch(error => console.error('Error:', error));
 }
+
+function sendScore() {
+    let playerName = prompt("Enter your name:");
+    const xhr = new XMLHttpRequest();
+    const url = 'score.php';
+
+    const data = JSON.stringify({
+        score: parseInt(sessionStorage.getItem('consecutiveWins')) || 0,
+        name: playerName
+    });
+
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(data);
+}
+

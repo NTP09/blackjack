@@ -59,4 +59,24 @@ function drawCard($target) {
     $_SESSION['blackjack'][$target.'_ace'] += checkAce($card);
 }
 
+function getValue($card) {
+    $data = explode("-", $card)[0];
+    $value = $data;
+
+    if (!is_numeric($value)) {
+        if ($value === "A") {
+            return 11;
+        }
+        return 10;
+    }
+    return intval($value);
+}
+
+function checkAce($card) {
+    if ($card[0] === "A") {
+        return 1;
+    }
+    return 0;
+}
+
 ?>
