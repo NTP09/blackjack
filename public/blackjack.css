@@ -75,7 +75,7 @@ h2 {
     top: 20px;
     left: 20px;
     padding: 10px;
-    font-size: 16px;
+    font-size: 20px;
     background-color: white;
     border-radius: 5px;
     cursor: pointer;
@@ -102,5 +102,24 @@ h2 {
 }
 
 #Blackjack_Rules:hover {
+    background-color: red;
+}
+
+.button {
+    position: fixed;
+    top: 650px;
+    left: 20px;
+    padding: 10px;
+    font-size: 20px;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    font-weight: bold;
+    text-decoration: none;
+    color: inherit;
+}
+
+.button:hover {
     background-color: red;
 }
